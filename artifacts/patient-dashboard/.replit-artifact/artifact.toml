@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Tech.Care Patient Dashboard"
+version = "1.0.0"
+id = "artifacts/patient-dashboard"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18227
+
+[services.development]
+run = "pnpm --filter @workspace/patient-dashboard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/patient-dashboard", "run", "build" ]
+publicDir = "artifacts/patient-dashboard/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18227"
+BASE_PATH = "/"
